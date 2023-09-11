@@ -47,7 +47,6 @@ public class ProductController {
         product.setImageURL(fileName);
 
         productService.save(product);
-
         log.info("product Saved");
         return "redirect:/product/all";
     }
