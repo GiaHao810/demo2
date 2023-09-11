@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Manager</title>
+</head>
+<body>
+    <div>
+
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="user : ${listUsers}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <form th:method="post" th:action="@{/users/delete}" >
+                        <input type="hidden" th:name="userID" th:value="${user.id}">
+                        <button>Delete</button>
+                    </form>
+
+                    <form th:method="get" th:action="@{/users/update/{userid}(userid=${user.id})}" >
+                        <input type="hidden" th:name="userID" th:value="${user.id}">
+                        <button>Update</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <form th:method="get" th:action="@{/users/add}" >
+            <button>Add New User</button>
+        </form>
+    </div>
+</body>
+</html>

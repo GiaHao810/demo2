@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Manager</title>
+</head>
+<body>
+    <div>
+
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+            </tr>
+            <tr th:each="product : ${listProduct}">
+                <td th:text="${product.id}"></td>
+                <td>
+                    <img th:src="${product.imageURL}" alt="Product Image" width="100" height="100">
+                </td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.category}"></td>
+                <td>
+                    <form th:method="post" th:action="@{/product/delete}" >
+                        <input type="hidden" th:name="productID" th:value="${product.id}">
+                        <button>Delete</button>
+                    </form>
+
+                    <form th:method="get" th:action="@{/product/update/{productid}(productid=${product.id})}" >
+                        <input type="hidden" th:name="productid" th:value="${product.id}">
+                        <button>Update</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <form th:method="get" th:action="@{/product/add}" >
+            <button>Add New Product</button>
+        </form>
+    </div>
+</body>
+</html>
